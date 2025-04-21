@@ -148,7 +148,7 @@ app.put(`/enderecos/:id`, async (req, res) => {
     };
 });
 
-app.delete(`/enderecos`, async (req, res) => {
+app.delete(`/enderecos/:id`, async (req, res) => {
 
     const { id } = req.params;
 

@@ -44,6 +44,19 @@ function Cadastro_endereco() {
         };
     };
 
+    async function excluir_endereco(id_endereco){
+
+        try {
+            
+            await axios.delete(`http://localhost:3000/enderecos/${id_endereco}`);
+            buscar_enderecos();
+
+        } catch (erro) {
+          
+            console.error(erro);
+        };
+    };
+
   return (
     <div>
 
@@ -79,6 +92,8 @@ function Cadastro_endereco() {
                 <p>Número: {mensagem.numero_residencial}</p>
                 <p>Cidade: {mensagem.cidade}</p>
                 <p>Estado: {mensagem.estado}</p>
+                <button>Editar Endereço</button>
+                <button onClick={() => excluir_endereco(mensagem._id)}>Excluir Endereço</button>
             </div>
         ))}
     </div>
