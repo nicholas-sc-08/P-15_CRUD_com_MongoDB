@@ -135,12 +135,12 @@ app.post(`/enderecos`, async (req, res) => {
 app.put(`/enderecos/:id`, async (req, res) => {
 
     const { id } = req.params;
-    const endereco_atualizado = new Endereco(req.body);
+    delete req.body._id;
 
     try {
         
-        await endereco_atualizado.findByIdAndUpdate(id, endereco_atualizado, {new: true});
-        res.status(200).json(`Endereco atualizado com sucesso!`);
+        await Endereco.findByIdAndUpdate(id, req.body, {new: true});
+        res.status(200).json(`Endereço atualizado com sucesso!`);
 
     } catch (erro) {
       

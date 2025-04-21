@@ -57,6 +57,20 @@ function Cadastro_endereco() {
         };
     };
 
+    async function editar_endereco(id_endereco){
+
+        try {
+            
+            await axios.put(`http://localhost:3000/enderecos/${id_endereco}`, endereco);
+            buscar_enderecos();
+            set_endereco({cep: ``, rua: ``, numero_residencial: ``, cidade: ``, estado: ``});
+
+        } catch (erro) {
+          
+            console.error(erro);
+        };
+    };
+
   return (
     <div>
 
@@ -92,7 +106,7 @@ function Cadastro_endereco() {
                 <p>Número: {mensagem.numero_residencial}</p>
                 <p>Cidade: {mensagem.cidade}</p>
                 <p>Estado: {mensagem.estado}</p>
-                <button>Editar Endereço</button>
+                <button onClick={() => editar_endereco(mensagem._id)}>Editar Endereço</button>
                 <button onClick={() => excluir_endereco(mensagem._id)}>Excluir Endereço</button>
             </div>
         ))}
