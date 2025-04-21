@@ -5,6 +5,7 @@ const app = express();
 const porta = 3000;
 const conectar_com_mongo = require(`./mongo.js`);
 const Usuario = require(`./models/Usuario.js`);
+const Endereco = require(`./models/Enderecos.js`);
 
 conectar_com_mongo();
 app.use(cors());
@@ -81,6 +82,80 @@ app.delete(`/usuarios/:id`, async (req, res) => {
         
         await Usuario.findByIdAndDelete(id);
         res.status(200).json(`Usuário deletado.`);
+
+    } catch (erro) {
+      
+        console.error(erro);
+    };
+});
+
+app.get(`/enderecos`, async (req, res) => {
+
+    try {
+        
+        const endereco = await Endereco.find();
+        res.status(200).json(endereco);
+
+    } catch (erro) {
+      
+        console.error(erro);
+    };
+});
+
+app.get(`/enderecos/:id`, async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        
+        const endereco = await Endereco.findById(id);
+        res.status(200).json(endereco);
+
+    } catch (erro) {
+      
+        console.error(erro);
+    };
+});
+
+app.post(`/enderecos`, async (req, res) => {
+
+    const novo_endereco = new Endereco(req.body);
+
+    try {
+        
+        const endereco = await novo_endereco.save();
+        res.status(201).json(endereco);
+
+    } catch (erro) {
+      
+        console.error(erro);
+    };
+});
+
+app.put(`/enderecos/:id`, async (req, res) => {
+
+    const { id } = req.params;
+    const endereco_atualizado = new Endereco(req.body);
+
+    try {
+        
+        await endereco_atualizado.findByIdAndUpdate(id, endereco_atualizado, {new: true});
+        res.status(200).json(`Endereco atualizado com sucesso!`);
+
+    } catch (erro) {
+      
+        console.error(erro);
+    };
+});
+
+app.delete(`/enderecos`, async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        
+        await Endereco.findByIdAndDelete(id);
+        res.status(200).json(`Endereço excluído com sucesso!`);
 
     } catch (erro) {
       

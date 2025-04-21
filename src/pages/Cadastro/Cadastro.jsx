@@ -8,6 +8,7 @@ function Cadastro() {
 
   const [ usuario, set_usuario ] = useState({nome: ``, email: ``, senha: ``});
   const { array_usuarios, set_array_usuarios } = useContext(GlobalContext);
+  const [ email_cadastrado, set_email_cadastrado ] = useState(``);
 
   useEffect(() => {
 
@@ -35,8 +36,18 @@ function Cadastro() {
 
     try {
 
-      await axios.post(`http://localhost:3000/usuarios`, usuario);
-      set_usuario({nome: ``, email: ``, senha: ``});
+      const email_ja_cadastrado = array_usuarios.find(email => email.email == usuario.email);
+
+      if(email_ja_cadastrado){
+
+        set_email_cadastrado(`Email já cadastrado!`);
+      
+      } else {
+
+        await axios.post(`http://localhost:3000/usuarios`, usuario);
+        set_usuario({nome: ``, email: ``, senha: ``});
+        set_email_cadastrado(``);
+      };
       
     } catch (erro) {
       
@@ -65,6 +76,8 @@ function Cadastro() {
       <Link to={`/login`}>Ir para Login</Link>
       <Link to={`/`}>Ir para Início</Link>
       </form>
+
+      {email_cadastrado && email_cadastrado}
 
     </div>
   )

@@ -10,16 +10,16 @@ function Inicio() {
   useEffect(() => {
 
     buscar_usuarios();
-    console.log(array_usuarios);
-
+    
   }, []);
-
+  
   async function buscar_usuarios(){
-
+    
     try {
-
+      
       const usuarios = await axios.get(`http://localhost:3000/usuarios`);
       set_array_usuarios(usuarios.data);
+      console.log(usuarios.data);
       
     } catch (erro) {
       
