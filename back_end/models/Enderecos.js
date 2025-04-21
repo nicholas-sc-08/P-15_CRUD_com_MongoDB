@@ -8,7 +8,7 @@ const schema_endereco = new mongoose.Schema({
     cidade: { type: String, required: true},
     estado: { type: String, required: true}
 
-}, {timetamps: true});
+}, {timestamps: true});
 
 const Endereco = mongoose.model(`Endereco`, schema_endereco);
 module.exports = Endereco;
